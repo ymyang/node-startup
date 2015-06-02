@@ -9,3 +9,15 @@ users.SignParam = function(attrs) {
 
     attrs && _.extend(this,  attrs);
 };
+
+users.UserParam = function(attrs) {
+    this.userId = undefined;
+    this.userName = undefined;
+    this.realName = undefined;
+    this.title = undefined;
+    this.email = undefined;
+    this.mobile = undefined;
+    this.tel = undefined;
+
+    attrs && _.extend(this,  attrs);
+};

@@ -4,6 +4,14 @@
 
 var UserService = require('../service/UserService.js');
 
-exports.sign= function(req, res) {
+exports.sign = function(req, res) {
     UserService.sign(req, res);
 };
+
+exports.listUsers = function(req, res) {
+    UserService.listUsers(req, res);
+};
+
+exports.updateUser = function(req, res) {
+    UserService.updateUser(req,  res);
+}

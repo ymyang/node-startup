@@ -16,8 +16,10 @@ models.Enterprise = sequelize.import('./Enterprise.js');
 models.Department = sequelize.import('./Department.js');
 models.User = sequelize.import('./User.js');
 models.VLogin = sequelize.import('./VLogin.js');
+models.LoginAccount = sequelize.import('./LoginAccount.js');
 
 // models.Department.belongsTo(models.Enterprise);
-models.Enterprise.hasMany(models.Department, {foreignKey: 'ent_id'});
-models.Department.hasMany(models.User, {foreignKey: 'dept_id'});
-models.User.hasMany(models.VLogin, {foreignKey: 'user_id'});
+models.Enterprise.hasMany(models.Department, {foreignKey: 'entId'});
+models.Department.hasMany(models.User, {foreignKey: 'deptId'});
+models.User.hasMany(models.VLogin, {foreignKey: 'userId'});
+models.User.hasMany(models.LoginAccount, {foreignKey: 'userId'});

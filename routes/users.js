@@ -9,4 +9,8 @@ router.get('/', function(req, res, next) {
 
 router.post('/sign', UserCtrl.sign);
 
+router.get('/list', UserCtrl.listUsers);
+
+router.put('/', UserCtrl.updateUser);
+
 module.exports = router;
