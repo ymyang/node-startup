@@ -1,9 +1,11 @@
+var logger = require('../util/logger.js');
 var Sequelize = require('sequelize');
 var models = module.exports = {};
 
 var sequelize = new Sequelize('oatos_ent', 'root', 'admin', {
 	host: 'localhost',
 	dialect: 'mysql',
+	logging: logger,
 	pool: {
 		max: 5,
 		min: 0,
