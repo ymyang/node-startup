@@ -1,5 +1,5 @@
 var express = require('express');
-var UserCtrl = require('../controller/UserCtrl.js');
+var UserService = require('../service/UserService.js');
 var router = express.Router();
 
 /* GET users listing. */
@@ -7,10 +7,10 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/sign', UserCtrl.sign);
+router.post('/sign', UserService.sign);
 
-router.get('/list', UserCtrl.listUsers);
+router.get('/list', UserService.listUsers);
 
-router.put('/', UserCtrl.updateUser);
+router.put('/', UserService.updateUser);
 
 module.exports = router;
