@@ -1,8 +1,9 @@
 var Sequelize = require('sequelize');
+var logger = require('../util/logger.js').logger;
 var models = module.exports = {};
 
 var sqlLog = function (content) {
-	console.log('[sql]:', content);
+	logger.debug(content);
 };
 
 var sequelize = new Sequelize('oatos_ent', 'root', 'admin', {

@@ -4,8 +4,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
-var logger = require('./util/logger.js');
-global.logger = logger;
+var logger = require('./util/logger.js').logger;
 
 var url = require('url');
 
@@ -34,8 +33,8 @@ app.use(function (req, res, next) {
   if (req.body && mime === 'application/json') {
     params += "[body]: " + JSON.stringify(req.body);
   }
-  console.log('Express [uri]: ', req.url, ", ", params);
-  //logger.log('info', 'Express [uri]: ' + req.url + ", " + params);
+  //console.log('Express [uri]: ', req.url, ", ", params);
+  logger.info('Express [uri]:', req.url, ",", params);
   next();
 });
 
