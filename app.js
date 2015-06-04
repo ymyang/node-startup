@@ -32,7 +32,7 @@ app.use(function (req, res, next) {
     params += "[body]: " + JSON.stringify(req.body);
   }
   //console.log('Express [uri]: ', req.url, ", ", params);
-  logger.info('Express [uri]:', req.url, ",", params);
+  logger.debug('Express [uri]:', req.url, ",", params);
   next();
 });
 
@@ -51,6 +51,7 @@ app.use(function(req, res, next) {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+  logger.error('[url]:', req.url, err);
   res.status(err.status || 500);
   res.send(err.message);
 });

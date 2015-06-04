@@ -1,13 +1,14 @@
 var Sequelize = require('sequelize');
 var logger = require('../util/logger.js').logger;
+var config = require('../config.json');
 var models = module.exports = {};
 
 var sqlLog = function (content) {
 	logger.debug(content);
 };
 
-var sequelize = new Sequelize('oatos_ent', 'root', 'admin', {
-	host: 'localhost',
+var sequelize = new Sequelize('oatos_ent', config.mysql.username, config.mysql.password, {
+	host: config.mysql.host,
 	dialect: 'mysql',
 	logging: sqlLog,
 	pool: {

@@ -2,6 +2,7 @@
  * Created by yang on 2015/6/2.
  */
 var winston = require("winston");
+var config = require('../config.json');
 var models = module.exports = {};
 
 var customLevels = {
@@ -25,7 +26,7 @@ models.logger = new (winston.Logger)({
     levels: customLevels.levels,
     transports: [
         new (winston.transports.Console)({
-            level:'debug',
+            level: config.env === 'dev' ? 'trace' : 'error',
             colorize: true,
             handleExceptions: true
         })
