@@ -6,8 +6,6 @@ var errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
 var logger = require('./util/logger.js').logger;
 
-var url = require('url');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
