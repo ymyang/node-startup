@@ -3,7 +3,6 @@
  */
 var winston = require("winston");
 var config = require('../config.json');
-var models = module.exports = {};
 
 var customLevels = {
     levels: {
@@ -22,7 +21,7 @@ var customLevels = {
     }
 };
 
-models.logger = new (winston.Logger)({
+module.exports = new (winston.Logger)({
     levels: customLevels.levels,
     transports: [
         new (winston.transports.Console)({

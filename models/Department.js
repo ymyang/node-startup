@@ -8,9 +8,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BIGINT,
       allowNull: false
     },
-    entId: {
-      field: 'ent_id',
+    parentId: {
+      field: 'parent_id',
       type: DataTypes.BIGINT,
+      allowNull: true
+    },
+    parentIds: {
+      field: 'parent_ids',
+      type: DataTypes.STRING,
       allowNull: false
     },
     deptName: {
@@ -18,50 +23,30 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    parentId: {
-      field: 'parent_id',
-      type: DataTypes.BIGINT,
-      allowNull: true
-    },
     orderValue: {
       field: 'order_value',
       type: DataTypes.INTEGER(11),
       allowNull: false,
       defaultValue: '0'
     },
-    createrId: {
-      field: 'creater_id',
+    updateUserId: {
+      field: 'update_user_id',
       type: DataTypes.BIGINT,
       allowNull: true
     },
-    createrName: {
-      field: 'creater_name',
+    updateUserName: {
+      field: 'update_user_name',
       type: DataTypes.STRING,
       allowNull: true
     },
-    createTime: {
-      field: 'create_time',
+    updateTime: {
+      field: 'update_time',
       type: DataTypes.DATE,
-      allowNull: true
-    },
-    roleId: {
-      field: 'role_id',
-      type: DataTypes.BIGINT,
-      allowNull: true
-    },
-    folderId: {
-      field: 'folder_id',
-      type: DataTypes.BIGINT,
-      allowNull: true
-    },
-    namespace: {
-      field: 'namespace',
-      type: DataTypes.STRING,
       allowNull: true
     }
   } , {
     tableName: 'department',
     timestamps: false,
     freezeTableName: true
- });
+  });
 };

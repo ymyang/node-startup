@@ -1,16 +1,16 @@
 var express = require('express');
-var UserService = require('../service/UserService.js');
+var UserCtrl = require('../controller/UserCtrl.js');
 var router = express.Router();
 
+// 创建用户
+router.post('/user', UserCtrl.createUser);
+
+// 修改用户
+router.put('/user', UserCtrl.updateUser);
+
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/users', UserCtrl.listUsers);
 
-router.post('/sign', UserService.sign);
-
-router.get('/list', UserService.listUsers);
-
-router.put('/', UserService.updateUser);
+router.post('/users/sign', UserCtrl.sign);
 
 module.exports = router;

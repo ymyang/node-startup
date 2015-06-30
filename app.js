@@ -1,59 +1,80 @@
-var morgan = require('morgan');
+/**
+ * Created by yang on 2015/6/22.
+ */
+const TAG = '[app]';
+var http = require('http');
 var express = require('express');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var errorHandler = require('errorhandler');
-var methodOverride = require('method-override');
-var logger = require('./util/logger.js').logger;
+var morgan = require('morgan');
+var config = require('./config.json');
+var logger = require('./utils/logger.js');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var routes = require('./routes');
 
 var app = express();
 
 app.use(morgan('dev'));
-app.use(methodOverride());
 app.use(bodyParser.json());
-app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(errorHandler({
-  dumpExceptions: true,
-  showStack: true
-}));
 
 app.disable('x-powered-by');
 
-app.use(function (req, res, next) {
-  var params = '';
-  var str = req.headers['content-type'] || '';
-  var mime = str.split(';')[0];
-  if (req.body && mime === 'application/json') {
-    params += "[body]: " + JSON.stringify(req.body);
-  }
-  //console.log('Express [uri]: ', req.url, ", ", params);
-  logger.debug('Express [uri]:', req.url, ",", params);
-  next();
-});
-
+// routes
 app.use('/', routes);
-app.use('/users', users);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found:' + req.url);
-  err.status = 404;
-  next(err);
+var port = config.port || 3000;
+app.set('port', port);
+var server = http.createServer(app);
+server.listen(port);
+
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    var bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            logger.error(TAG, bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            logger.error(TAG, bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
+    logger.info(TAG, 'Listening on ', bind);
+}
+
+
+process.on("uncaughtException", function (err) {
+    logger.error(TAG, 'uncaughtException:', err);
 });
-
-// error handlers
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  logger.error('[url]:', req.url, err);
-  res.status(err.status || 500);
-  res.send(err.message);
+process.on("unhandledRejection", function(reason, promise) {
+    logger.error(TAG, 'unhandledRejection:', reason, promise);
 });
-
-module.exports = app;
+process.on("rejectionHandled", function(promise) {
+    logger.error(TAG, 'rejectionHandled:', promise);
+});
