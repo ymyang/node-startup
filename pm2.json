@@ -1,0 +1,10 @@
+{
+  "name": "app",
+  "script": "D:/work/node-startup/app.js",
+  "instances": 1,
+  "max_memory_restart": "256M",
+  "pid_file": "D:/opt/yliyun/logs/node/app.pid",
+  "error_file": "D:/opt/yliyun/logs/node/app-err.log",
+  "out_file": "D:/opt/yliyun/logs/node/app.log",
+  "log_date_format": "YYYY-MM-DD HH:mm:ss"
+}
