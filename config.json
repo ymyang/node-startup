@@ -1,5 +1,9 @@
 {
+  "serverId": 1,
   "env": "dev",
+  "log": "debug",
+  "seqCache": 50,
+  "tmpdir": "/opt/yliyun/temp",
   "mysql": {
     "host": "127.0.0.1",
     "username": "root",

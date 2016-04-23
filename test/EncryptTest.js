@@ -1,9 +1,9 @@
 /**
  * Created by yang on 2015/6/27.
  */
-var Encrypt = require('../utils/Encrypt.js');
+var Encrypt = require('../utils/encrypt.js');
 
-describe('test Encrypt.js', function() {
+describe('test encrypt.js', function() {
     it('randomStr', function() {
         console.log(Encrypt.randomStr(32).toUpperCase());
         console.log(Encrypt.randomStr(12));

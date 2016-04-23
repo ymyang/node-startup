@@ -3,19 +3,24 @@
  */
 const TAG = '[app]';
 var http = require('http');
-var express = require('express');
+var app = require('express')();
+var timeout = require('connect-timeout');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var config = require('./config.json');
 var logger = require('./utils/logger.js');
 
 var routes = require('./routes');
 
-var app = express();
-
+app.use(timeout('60s'));
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.raw());
+app.use(bodyParser.text());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.disable('x-powered-by');
 
@@ -23,7 +28,6 @@ app.disable('x-powered-by');
 app.use('/', routes);
 
 var port = config.port || 3000;
-app.set('port', port);
 var server = http.createServer(app);
 server.listen(port);
 
@@ -67,7 +71,6 @@ function onListening() {
         : 'port ' + addr.port;
     logger.info(TAG, 'Listening on ', bind);
 }
-
 
 process.on("uncaughtException", function (err) {
     logger.error(TAG, 'uncaughtException:', err);

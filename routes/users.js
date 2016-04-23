@@ -1,16 +1,25 @@
 var express = require('express');
 var UserCtrl = require('../controller/UserCtrl.js');
-var router = express.Router();
+var DeptCtrl = require('../controller/DeptCtrl.js');
+var router = module.exports = express.Router();
 
-// 创建用户
-router.post('/user', UserCtrl.createUser);
+// 管理员创建用户
+router.post('/ad/user', UserCtrl.createUser);
 
-// 修改用户
-router.put('/user', UserCtrl.updateUser);
-
-/* GET users listing. */
+// 普通用户取用户列表
 router.get('/users', UserCtrl.listUsers);
 
-router.post('/users/sign', UserCtrl.sign);
+// 创建部门
+router.post('/ad/dept', DeptCtrl.createDept);
 
-module.exports = router;
+// 修改部门
+router.put('/ad/dept', DeptCtrl.updateDept);
+
+// 获取部门列表
+router.get('/depts', DeptCtrl.listDepts);
+
+// 获取单个部门详情
+router.get('/dept', DeptCtrl.getDept);
+
+// 删除部门
+router.delete('/ad/dept', DeptCtrl.deleteDept);

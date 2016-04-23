@@ -1,11 +1,11 @@
 /**
  * Created by yang on 2015/6/24.
  */
-var Seq = require('../utils/Seq.js');
+var Seq = require('../utils/seq.js');
 var logger = require('../utils/logger.js');
 var _ = require('lodash');
 
-describe('test Seq.js', function() {
+describe('test seq.js', function() {
     it.only('getNextId', function() {
         Seq.getNextId().then(function(id) {
             console.log('getNextId:', id)

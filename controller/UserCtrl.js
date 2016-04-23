@@ -2,50 +2,38 @@
  * Created by yang on 2015/6/29.
  */
 var UserService = require('../service/UserService.js');
-var SignParam = require('../params/users').SignParam;
-var UserParam = require('../params/users').UserParam;
-var errors = require('../utils/errors.js');
+var common = require('../utils/common.js');
 
 var UserCtrl = module.exports = {};
 
+/**
+ * 创建用户
+ */
 UserCtrl.createUser = function(req, res) {
-    var p = new UserParam(req.body);
-    p.updateUserId = req.user.userId;
-    p.updateUserName = req.user.userName;
-    UserService.createUser(p).then(function(r) {
-        res.json(r);
-    }).catch(function(err) {
-        errors.handler(err, res);
-    });
+    var p = {
+        deptId: req.body.deptId,
+        userName: req.body.userName,
+        realName: req.body.realName,
+        title: req.body.title,
+        jobNumber: req.body.jobNumber,
+        gender: req.body.gender,
+        birth: req.body.birth,
+        mail: req.body.mail,
+        tel: req.body.tel,
+        mobile: req.body.mobile,
+        password: req.body.password,
+        diskSize: req.body.diskSize
+    };
+    common.reqHandler(req, res, UserService.createUser, p);
 };
 
-UserCtrl.updateUser = function(req, res) {
-    var p = new UserParam(req.body);
-    p.updateUserId = req.user.userId;
-    p.updateUserName = req.user.userName;
-    UserService.updateUser(p).then(function(r) {
-        res.json(r);
-    }).catch(function(err) {
-        errors.handler(err, res);
-    });
-};
-
-UserCtrl.listUsers = function(req, res) {
-    var p = {};
-    p.offset = req.query.offset && 0;
-    p.limit = req.query.limit && 1000;
-    UserService.listUsers(p).then(function(r) {
-        res.json(r);
-    }).catch(function(err) {
-        errors.handler(err, res);
-    });
-};
-
-UserCtrl.sign = function(req, res) {
-    var p = new SignParam(req.body);
-    UserService.sign(p).then(function(r) {
-        res.json(r);
-    }).catch(function(err) {
-        errors.handler(err, res);
-    });
+/**
+ * 用户查找用户
+ */
+UserCtrl.listUsers = function (req, res) {
+    var p = {
+        deptId: req.query.di,
+        searchKey: req.query.key
+    };
+    common.reqHandler(req, res, UserService.listUsers, p);
 };
